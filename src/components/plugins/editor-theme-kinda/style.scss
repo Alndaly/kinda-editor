@@ -1,0 +1,64 @@
+.milkdown-theme-kinda {
+  h1,
+  h2,
+  h3,
+  h4 {
+    border-bottom: 1px solid #aaa;
+  }
+  font-size: 15px;
+  & {
+    :where(td, th):nth-child(odd) {
+      background-color: rgb(249 250 251);
+    }
+  }
+  .tableWrapper {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    table {
+      td,
+      th {
+        padding: 0.75rem 1.5rem !important;
+        p {
+          margin: 0;
+        }
+      }
+      tr:not(:last-child) {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-color: rgb(224, 226, 230);
+      }
+    }
+  }
+  img:not(.ProseMirror-separator) {
+    max-width: 100%;
+  }
+  ul {
+    padding-left: 20px;
+    li {
+      margin: 5px 0;
+    }
+  }
+  blockquote {
+    border: 0;
+    border-left: 10px;
+    border-style: solid;
+    border-color: #2f4154;
+    margin-left: 0;
+    padding-left: 10px;
+  }
+  p {
+    code {
+      background-color: #2f4154;
+      border-radius: 5px;
+      color: white;
+      padding: 5px;
+      margin: 5px 2px;
+    }
+  }
+  pre {
+    background-color: #2f4154;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+  }
+}

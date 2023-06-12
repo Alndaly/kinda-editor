@@ -1,0 +1,18 @@
+// app global css in SCSS form
+@font-face {
+  font-family: "DouYu";
+  src: url("/fonts/douyuFont.otf");
+}
+
+@font-face {
+  font-family: "LX";
+  src: url("/fonts/LXGWWenKaiGBScreen.ttf");
+}
+
+* {
+  font-family: "LX";
+}
+
+.text-bold {
+  font-weight: bold;
+}
