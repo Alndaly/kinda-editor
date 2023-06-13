@@ -1,6 +1,6 @@
 <template>
-  <q-page class="q-pa-md">
-    <q-card class="q-pa-md">
+  <q-page>
+    <q-card class="q-pa-md no-shadow">
       <MilkdownEditorWrapper />
     </q-card>
   </q-page>

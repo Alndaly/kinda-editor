@@ -11,7 +11,6 @@ export const kindaThemeConfig = (ctx: Ctx): void => {
       ...prev,
       attributes: (state) => {
         const attrs = typeof prevClass === 'function' ? prevClass(state) : prevClass
-        console.log(attrs)
         return {
           ...attrs,
           class: clsx('no-border no-outline', attrs?.class || '', 'milkdown-theme-kinda'),
