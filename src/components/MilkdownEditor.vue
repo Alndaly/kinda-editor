@@ -15,13 +15,15 @@ import { gfm } from '@milkdown/preset-gfm';
 import { math } from '@milkdown/plugin-math';
 import { iframe } from './plugins/iframe-node';
 import { callout } from './plugins/callout-node';
+import { editorViewOptionsCtx } from '@milkdown/core';
 
+import 'prosemirror-view/style/prosemirror.css';
 import 'prism-themes/themes/prism-nord.css';
 import 'katex/dist/katex.min.css';
 
 const markdown = `
 
-# Milkdown Vue Commonmark
+# Kinda Editor
 
 > You're scared of a world where you're needed.
 
@@ -37,14 +39,21 @@ This is a demo for using Milkdown with **Vue**.
 
 :::
 
+[百度一下，你就知道](https://baidu.com)
 
 `;
+
+const editable = () => true;
 
 useEditor((root) =>
   Editor.make()
     .config((ctx) => {
       ctx.set(rootCtx, root);
       ctx.set(defaultValueCtx, markdown);
+      ctx.update(editorViewOptionsCtx, (prev) => ({
+        ...prev,
+        editable,
+      }));
     })
     .config(kindaThemeConfig)
     .use(commonmark)

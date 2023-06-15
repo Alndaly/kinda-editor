@@ -17,7 +17,6 @@
           @update:model-value="toggleDarkTheme"
           checked-icon="dark_mode"
           color="blue"
-          label="夜间"
           unchecked-icon="sunny"
         />
       </q-toolbar>

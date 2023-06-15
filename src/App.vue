@@ -14,7 +14,6 @@ export default defineComponent({
     const hour = time.getHours();
     const $q = useQuasar();
     const appStore = useAppStore();
-    console.log(hour);
     if (hour > 18 || hour < 6) {
       // 设置为夜间模式
       $q.dark.set(true);
