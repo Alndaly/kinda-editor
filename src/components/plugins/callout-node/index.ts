@@ -1,5 +1,5 @@
 import type { MilkdownPlugin } from '@milkdown/ctx'
-import { Slice, Fragment, Node, NodeType, Attrs, MarkType, ResolvedPos, ContentMatch } from 'prosemirror-model'
+import { Node } from 'prosemirror-model'
 import { $inputRule, $node, $remark, $useKeymap, $command } from '@milkdown/utils';
 import { commandsCtx } from '@milkdown/core'
 import { Selection } from '@milkdown/prose/state'
@@ -43,7 +43,12 @@ const directiveNode = $node('callout', () => {
           break;
 
       }
-      return ['div', { ...node.attrs, class: classList }, 0]
+      return [
+        'div', {
+          ...node.attrs,
+        },
+        ['div', { ...node.attrs, class: classList }, 0]
+      ]
     },
     parseMarkdown: {
       match: (node) => {
