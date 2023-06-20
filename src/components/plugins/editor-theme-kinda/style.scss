@@ -1,12 +1,10 @@
+// 暗色主题
 .body--dark {
   .milkdown-theme-kinda {
-    padding: 0 10%;
-    .callout {
-      padding: 10px;
-      p:last-child {
-        margin: 0;
-      }
+    p:last-child {
+      margin-bottom: 0;
     }
+    padding: 0 10%;
     iframe {
       min-height: 350px;
     }
@@ -75,15 +73,13 @@
   }
 }
 
+// 亮色主题
 .body--light {
   .milkdown-theme-kinda {
-    padding: 0 10%;
-    .callout {
-      padding: 10px;
-      p:last-child {
-        margin: 0;
-      }
+    p:last-child {
+      margin-bottom: 0;
     }
+    padding: 0 10%;
     iframe {
       min-height: 350px;
     }

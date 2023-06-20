@@ -4,11 +4,16 @@
 </template>
 
 <script setup lang="ts">
-import { useNodeViewFactory } from '@prosemirror-adapter/vue';
+import {
+  useNodeViewFactory,
+  usePluginViewFactory,
+  useWidgetViewFactory,
+} from '@prosemirror-adapter/vue';
 import { defaultValueCtx, Editor, rootCtx } from '@milkdown/core';
 import { Milkdown, useEditor } from '@milkdown/vue';
-import { $view } from '@milkdown/utils';
+import { $view, callCommand } from '@milkdown/utils';
 import CodeNode from '@/components/plugins/code-node/CodeNode.vue';
+import CalloutNode from './plugins/callout-node/CalloutNode.vue';
 import { codeBlockSchema, commonmark } from '@milkdown/preset-commonmark';
 import { kindaThemeConfig } from '@/components/plugins/editor-theme-kinda';
 import { prism } from '@milkdown/plugin-prism';
@@ -19,12 +24,15 @@ import { math } from '@milkdown/plugin-math';
 import { iframe } from './plugins/iframe-node';
 import { callout } from './plugins/callout-node';
 import { editorViewOptionsCtx } from '@milkdown/core';
+import { calloutNode } from './plugins/callout-node/index';
 
 import 'prosemirror-view/style/prosemirror.css';
 import 'prism-themes/themes/prism-nord.css';
 import 'katex/dist/katex.min.css';
 
 const nodeViewFactory = useNodeViewFactory();
+const pluginViewFactory = usePluginViewFactory();
+const widgetViewFactory = useWidgetViewFactory();
 
 const markdown = `
 
@@ -35,6 +43,14 @@ const markdown = `
 ::iframe{src="https://alndaly.github.io"}
 
 :::note
+
+测试一下提醒1。
+
+测试一下提醒2。
+
+:::
+
+:::info
 
 测试一下提醒1。
 
@@ -73,5 +89,6 @@ useEditor((root) =>
         nodeViewFactory({ component: CodeNode })
       )
     )
+    .use($view(calloutNode, () => nodeViewFactory({ component: CalloutNode })))
 );
 </script>

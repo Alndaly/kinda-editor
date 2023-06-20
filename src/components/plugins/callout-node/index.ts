@@ -7,7 +7,9 @@ import { paragraphSchema } from '@milkdown/preset-commonmark'
 import directive from 'remark-directive';
 import { wrappingInputRule } from '@milkdown/prose/inputrules';
 
-const remarkDirective = $remark(() => directive)
+const remarkDirective = $remark(() => {
+  return directive
+})
 
 const calloutId = 'callout'
 
@@ -15,49 +17,27 @@ const directiveNode = $node('callout', () => {
   return ({
     content: 'block+',
     group: 'block',
-    atom: false,
-    isolating: true,
+    defining: true,
     attrs: {
       degree: { default: 'info' },
     },
     parseDOM: [{
       tag: `div[data-type="${calloutId}"]`,
+      getAttrs: (dom) => {
+        return ({
+          degree: (dom as HTMLElement).getAttribute('degree'),
+        })
+      },
     }],
-    toDOM: (node: Node) => {
-      const { degree } = node.attrs;
-      let classList = 'full-width text-white callout rounded-borders q-mb-md '
-      switch (degree) {
-        case 'info':
-          classList += 'bg-info'
-          break;
-        case 'caution':
-          classList += 'bg-warning'
-          break;
-        case 'tip':
-          classList += 'bg-positive'
-          break;
-        case 'note':
-          classList += 'bg-primary'
-          break;
-        default:
-          break;
-
-      }
-      return [
-        'div', {
-          ...node.attrs,
-        },
-        ['div', { ...node.attrs, class: classList }, 0]
-      ]
-    },
+    toDOM: (node: Node) => [
+      'div', { ...node.attrs }, 0
+    ],
     parseMarkdown: {
       match: (node) => {
-        return node.name === 'info' || node.name === 'caution' || node.name === 'note' || node.name === 'tip'
+        return node.name === 'info' || node.name === 'warning' || node.name === 'note' || node.name === 'tip'
       },
       runner: (state, node, type) => {
-        state.openNode(type);
-        state.next(node.children);
-        state.closeNode();
+        state.openNode(type, { degree: node.name }).next(node.children).closeNode();
       },
     },
     toMarkdown: {
@@ -67,6 +47,7 @@ const directiveNode = $node('callout', () => {
       runner: (state, node) => {
         state.addNode('containerDirective', undefined, undefined, {
           name: 'callout',
+          attributes: node.attrs,
         });
       },
     }
@@ -120,6 +101,8 @@ const getAttrs = (match: any) => {
 }
 
 
-export const inputRule = $inputRule(() => wrappingInputRule(/^:::(info|caution|tip|note)/, directiveNode.type(), getAttrs))
+export const inputRule = $inputRule(() => wrappingInputRule(/^:::(info|warning|tip|note)/, directiveNode.type(), getAttrs))
 
 export const callout: MilkdownPlugin[] = [remarkDirective, directiveNode, inputRule, calloutKeymap, quitCalloutCommand].flat()
+
+export const calloutNode = directiveNode
