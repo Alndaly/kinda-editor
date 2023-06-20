@@ -7,7 +7,7 @@
       <q-select
         outlined
         dense
-        dark
+        :dark="$q.dark.isActive"
         @update:modelValue="onLanguageChange"
         v-model="language"
         :options="languageOptions"
@@ -18,9 +18,7 @@
       :spellCheck="false"
       :data-language="node.attrs.language"
       class="pre-code"
-    >
-        <code class="code-box" :ref="contentRef"></code>
-      </pre>
+    ><code class="code-box" :ref="contentRef"></code></pre>
   </div>
 </template>
 <script setup lang="ts">
@@ -42,10 +40,20 @@ const onLanguageChange = (e: string) => {
 };
 </script>
 <style lang="scss">
-.code-node {
-  background-color: #2f4154;
-  border-radius: 5px;
-  color: white;
+.body--dark {
+  .code-node {
+    background-color: #2f4154;
+    border-radius: 5px;
+  }
+}
+.body--light {
+  .code-node {
+    background-color: rgb(229, 231, 235);
+    border-radius: 5px;
+  }
+}
+.pre-code {
+  height: fit-content;
 }
 .code-box {
   box-sizing: content-box;
